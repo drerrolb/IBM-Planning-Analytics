@@ -1,5 +1,3 @@
-
-#Section Epilog
 #****Begin: Generated Statements***
 #****End: Generated Statements****
 
@@ -222,6 +220,7 @@ CubeRuleAppend( sCube, 'SKIPCHECK;', 1 );
 CubeRuleAppend( sCube, '', 1 );
 CubeRuleAppend( sCube, '[''Test 1'', ''Value''] = N:	DB(''Test1'', ''All Year'', ''All Month'', ''All Account'', ''Calculated'');', 1 );
 
+
 # Summary 2
 
 sCube = 'Summary 2';
@@ -360,7 +359,30 @@ WHILE (nCountDate <= nSizeDate);
 END;
 
 ####################################################################################################################
-# Create Views
+# Save Input Cube Data
+#
+# Test 1
+# Test 2
+#
+####################################################################################################################
+
+CubeSaveData('Test 1');
+CubeSaveData('Test 2');
+
+####################################################################################################################
+# Reprocess Feeders
+#
+# Test 1 ->	Summary 1
+# Test 2 ->	Summary 2
+#
+####################################################################################################################
+
+CubeProcessFeeders('Test 1');
+CubeProcessFeeders('Test 2');
+
+
+####################################################################################################################
+# Create and Cache Views
 #
 # Test 1		[ Row: Year, Colum: Month, Title: Account, Test 1 Measure ]
 # Test 2		[ Row: Date[Year], Date[Month], Title: Account, Test 2 Measure ]
@@ -370,6 +392,7 @@ END;
 # Test 1
 
 sCube = 'Test 1';
+sView = 'Default';
 sMDX = 	'SELECT ' |
 		'NON EMPTY {[Month].[Month].MEMBERS} ON 0, ' |
         'NON EMPTY {[Year].[Year].MEMBERS} ON 1 ' |
@@ -377,35 +400,46 @@ sMDX = 	'SELECT ' |
         'WHERE ([Account].[Account].[All Account], [Test 1 Measure].[Test 1 Measure].[Calculated]) ';
 
 
-ViewCreateByMDX(sCube, 'Default', sMDX, 0 );
-
+ViewCreateByMDX(sCube, sView, sMDX, 0 );
+ViewConstruct( sCube, sView );
 
 # Test 2
 
 sCube = 'Test 2';
+sView = 'Default';
 sMDX = 	'SELECT ' |
 		'NON EMPTY {Descendants({[Date].[Month].DEFAULTMEMBER},1, SELF_AND_BEFORE)} ON 0, ' |
 		'NON EMPTY {Descendants({[Date].[Year].DEFAULTMEMBER},1, SELF_AND_BEFORE)} ON 1 ' |
         'FROM [Test 2] ' |
         'WHERE ([Account].[Account].[All Account], [Test 2 Measure].[Test 2 Measure].[Calculated]) ';
 
-ViewCreateByMDX(sCube, 'Default', sMDX, 0 );
-
+ViewCreateByMDX(sCube, sView, sMDX, 0 );
+ViewConstruct( sCube, sView );
 
 # Summary 1
 
 sCube = 'Summary 1';
+sView = 'Default';
 sMDX = 	'SELECT {[Summary 1 Measure].[Summary 1 Measure].MEMBERS} ON 0, ' |
 		'{[Test].[Test].MEMBERS} ON 1 ' |
         'FROM [Summary 1] ';
 
-ViewCreateByMDX(sCube, 'Default', sMDX, 0 );
+ViewCreateByMDX(sCube, sView, sMDX, 0 );
+ViewConstruct( sCube, sView );
 
 # Summary 2
 
 sCube = 'Summary 2';
+sView = 'Default';
 sMDX = 	'SELECT {[Summary 2 Measure].[Summary 2 Measure].MEMBERS} ON 0, ' |
 		'{[Test].[Test].MEMBERS} ON 1 ' |
         'FROM [Summary 2] ';
 
-ViewCreateByMDX(sCube, 'Default', sMDX, 0 );
+ViewCreateByMDX(sCube, sView, sMDX, 0 );
+ViewConstruct( sCube, sView );
+
+####################################################################################################################
+# Save All
+####################################################################################################################
+
+SaveDataAll();
