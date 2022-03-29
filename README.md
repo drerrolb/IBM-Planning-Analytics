@@ -1,5 +1,5 @@
 # IBM Planning Analytics code
-[Errol Brandt](https://www.linkedin.com/in/errolbrandt/) founder of SausageMachine
+[Errol Brandt](https://www.linkedin.com/in/errolbrandt/)
 
 ## Description
 This repository contains code samples for the IBM Planning Analytics videos.
