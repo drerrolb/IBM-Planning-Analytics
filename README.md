@@ -11,7 +11,6 @@ This repository contains code samples for the IBM Planning Analytics videos.
 
 ## Contents
 * Road Test Files
-* 
 
 
 
