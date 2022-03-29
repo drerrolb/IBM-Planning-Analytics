@@ -1,5 +1,5 @@
 # IBM Planning Analytics: Road Test Files
-[Errol Brandt](https://www.linkedin.com/in/errolbrandt/) founder of SausageMachine
+[Errol Brandt](https://www.linkedin.com/in/errolbrandt/)
 
 ## Description
 This code generates objects that support the [Road Test Playlist](https://youtube.com/playlist?list=PLe4H7ZrXDo-Xt7eIX0lFI7lHKA_6YK5ah).
